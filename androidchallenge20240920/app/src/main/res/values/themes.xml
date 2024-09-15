@@ -1,5 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-    <style name="Theme.Androidchallenge20240920" parent="android:Theme.Material.Light.NoActionBar" />
+    <style name="Theme.Androidchallenge20240920" parent="android:Theme.Material.Light.NoActionBar">
+        <item name="android:forceDarkAllowed">false</item>
+    </style>
+
+    <style name="AppThe.Splash" parent="Theme.SplashScreen">
+        <item name="windowSplashScreenBackground">@color/purple_200</item>
+        <item name="windowSplashScreenAnimationDuration">200</item>
+
+    </style>
 </resources>

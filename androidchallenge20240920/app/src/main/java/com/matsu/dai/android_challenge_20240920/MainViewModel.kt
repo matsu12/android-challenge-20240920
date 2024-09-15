@@ -7,19 +7,4 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 
 class MainViewModel(val charWorkRepo: ChatWorkRepo): ViewModel() {
-
-    fun fetchMe() {
-
-        // コルーチンを使ってAPIを叩く
-        CoroutineScope(Dispatchers.IO).launch {
-            try {
-                val response = charWorkRepo.getMessages(371815660)
-                println("User Info: ${response}")
-            } catch (e: Exception) {
-                e.printStackTrace() // エラーハンドリング
-            }
-        }
-
-        charWorkRepo.seveToken("aaaddddd")
-    }
 }

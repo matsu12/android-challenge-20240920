@@ -32,7 +32,11 @@ class ChatWorkRepo() {
        return chatWorkApis.postMessages(roomId, message)
     }
 
-    fun seveToken(token: String) {
+    fun saveToken(token: String) {
         localData.saveToken(token)
+    }
+
+    fun getToken(): String? {
+        return localData.getToken()
     }
 }

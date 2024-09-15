@@ -13,11 +13,13 @@ class MainViewModel(val charWorkRepo: ChatWorkRepo): ViewModel() {
         // コルーチンを使ってAPIを叩く
         CoroutineScope(Dispatchers.IO).launch {
             try {
-                val response = charWorkRepo.getMe()
-                println("User Info: ${response.name}, Avatar: ${response.avatarImageUrl}")
+                val response = charWorkRepo.getMessages(371815660)
+                println("User Info: ${response}")
             } catch (e: Exception) {
                 e.printStackTrace() // エラーハンドリング
             }
         }
+
+        charWorkRepo.seveToken("aaaddddd")
     }
 }

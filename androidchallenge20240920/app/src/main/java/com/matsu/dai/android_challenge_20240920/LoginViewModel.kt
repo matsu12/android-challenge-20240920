@@ -13,7 +13,7 @@ import kotlinx.coroutines.withContext
 import retrofit2.HttpException
 import javax.inject.Inject
 
-class LoginViewModel @Inject constructor(val chatWorkRepo: ChatWorkRepo): ViewModel() {
+class LoginViewModel @Inject constructor(private val chatWorkRepo: ChatWorkRepo): ViewModel() {
 
     // 入力値のState
     private val _tokenText = mutableStateOf("")

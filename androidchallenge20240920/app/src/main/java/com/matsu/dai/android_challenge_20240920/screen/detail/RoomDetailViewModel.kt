@@ -1,4 +1,4 @@
-package com.matsu.dai.android_challenge_20240920
+package com.matsu.dai.android_challenge_20240920.screen.detail
 
 import android.text.TextUtils
 import androidx.compose.runtime.State
@@ -7,13 +7,11 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.matsu.dai.android_challenge_20240920.data.repo.ChatWorkRepo
 import com.matsu.dai.android_challenge_20240920.data.repo.model.Message
-import com.matsu.dai.android_challenge_20240920.data.repo.model.Room
 import kotlinx.coroutines.CoroutineExceptionHandler
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
-import retrofit2.HttpException
 import javax.inject.Inject
 
 class RoomDetailViewModel @Inject constructor(private val chatWorkRepo: ChatWorkRepo): ViewModel() {

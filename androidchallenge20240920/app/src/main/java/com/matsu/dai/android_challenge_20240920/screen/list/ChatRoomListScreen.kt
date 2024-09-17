@@ -1,4 +1,4 @@
-package com.matsu.dai.android_challenge_20240920
+package com.matsu.dai.android_challenge_20240920.screen.list
 
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Row

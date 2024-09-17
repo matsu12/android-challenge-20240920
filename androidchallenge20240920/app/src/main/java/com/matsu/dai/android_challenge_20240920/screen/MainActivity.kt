@@ -1,4 +1,4 @@
-package com.matsu.dai.android_challenge_20240920
+package com.matsu.dai.android_challenge_20240920.screen
 
 import android.os.Bundle
 import android.text.TextUtils
@@ -7,17 +7,20 @@ import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
-import androidx.compose.material3.Button
 import androidx.compose.material3.Scaffold
-import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
-import androidx.navigation.NavController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
+import com.matsu.dai.android_challenge_20240920.screen.detail.RoomDetailScreen
+import com.matsu.dai.android_challenge_20240920.screen.detail.RoomDetailViewModel
+import com.matsu.dai.android_challenge_20240920.screen.list.ChatRoomListScreen
+import com.matsu.dai.android_challenge_20240920.screen.list.ChatRoomListViewModel
+import com.matsu.dai.android_challenge_20240920.screen.login.LoginScreen
+import com.matsu.dai.android_challenge_20240920.screen.login.LoginViewModel
 import com.matsu.dai.android_challenge_20240920.ui.theme.Androidchallenge20240920Theme
 import dagger.hilt.android.AndroidEntryPoint
 import javax.inject.Inject
@@ -50,7 +53,8 @@ class MainActivity : ComponentActivity() {
 
 @Composable
 fun MyAppScreen(mainViewModel: MainViewModel, loginViewModel: LoginViewModel,
-                chatRoomListViewModel: ChatRoomListViewModel, roomDetailViewModel: RoomDetailViewModel) {
+                chatRoomListViewModel: ChatRoomListViewModel, roomDetailViewModel: RoomDetailViewModel
+) {
     val navController = rememberNavController()
     val notLogin = TextUtils.isEmpty(mainViewModel.localTokenText.value)
     val firstScreen = remember(notLogin) {

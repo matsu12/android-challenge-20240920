@@ -1,4 +1,4 @@
-package com.matsu.dai.android_challenge_20240920
+package com.matsu.dai.android_challenge_20240920.screen.list
 
 import androidx.compose.runtime.State
 import androidx.compose.runtime.mutableStateOf

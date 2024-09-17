@@ -1,4 +1,4 @@
-package com.matsu.dai.android_challenge_20240920
+package com.matsu.dai.android_challenge_20240920.screen.detail
 
 import android.text.TextUtils
 import androidx.compose.foundation.layout.Column
@@ -16,7 +16,6 @@ import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.automirrored.filled.ArrowBack
-import androidx.compose.material.icons.filled.ArrowBack
 import androidx.compose.material3.Button
 import androidx.compose.material3.CenterAlignedTopAppBar
 import androidx.compose.material3.ExperimentalMaterial3Api
@@ -39,13 +38,11 @@ import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.text.style.TextOverflow
-import androidx.compose.ui.unit.TextUnit
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
 import coil.compose.AsyncImage
 import com.matsu.dai.android_challenge_20240920.data.repo.model.Message
-import com.matsu.dai.android_challenge_20240920.data.repo.model.Room
 import com.matsu.dai.android_challenge_20240920.ui.theme.Androidchallenge20240920Theme
 
 @OptIn(ExperimentalMaterial3Api::class)

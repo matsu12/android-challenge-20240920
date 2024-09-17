@@ -12,7 +12,7 @@ import dagger.hilt.components.SingletonComponent
 
 @Module
 @InstallIn(SingletonComponent::class)
-class ChatWorkRepoModule {
+class DataModule {
     @Provides
     fun provideChatWorkRepo(remote: ChatWorkApis, localData: LocalData): ChatWorkRepo {
         return ChatWorkRepo(remote, localData)

@@ -27,9 +27,8 @@ class LoginViewModel @Inject constructor(private val chatWorkRepo: ChatWorkRepo)
     private val _errorText = mutableStateOf("")
     val errorText: State<String> = _errorText
 
-    // すでにログインずみかのチェック用
-    private val _localTokenText = mutableStateOf("")
-    val localTokenText: State<String> = _localTokenText
+    private val _navigationEvent = mutableStateOf<Boolean>(false)
+    val navigationEvent: State<Boolean> = _navigationEvent
 
     private val exceptionHandler: CoroutineExceptionHandler = CoroutineExceptionHandler { _, throwable ->
         if (throwable is HttpException) {
@@ -54,11 +53,14 @@ class LoginViewModel @Inject constructor(private val chatWorkRepo: ChatWorkRepo)
                 chatWorkRepo.getMe()
            }
             _errorText.value = ""
-            _localTokenText.value = tokenText.value
+            _navigationEvent.value = true
         }
     }
 
-    init {
-        _localTokenText.value = chatWorkRepo.getToken() ?: ""
+    fun resetState() {
+        _navigationEvent.value = false
+        _errorText.value = ""
+        _tokenText.value = ""
     }
+
 }

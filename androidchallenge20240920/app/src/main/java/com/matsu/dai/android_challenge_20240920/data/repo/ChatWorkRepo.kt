@@ -24,12 +24,16 @@ class ChatWorkRepo() {
         return chatWorkApis.getRooms()
     }
 
-    suspend fun getMessages(roomId: Int): List<Message?>? {
+    suspend fun getMessages(roomId: Int): List<Message>? {
         return chatWorkApis.getMessages(roomId).body()
     }
 
     suspend fun postMessages(roomId: Int, message: String, selfUnread: Int? = null): Message  {
        return chatWorkApis.postMessages(roomId, message)
+    }
+
+    suspend fun getRoom(roomId: Int): Room {
+        return chatWorkApis.getRoom(roomId)
     }
 
     fun saveToken(token: String) {

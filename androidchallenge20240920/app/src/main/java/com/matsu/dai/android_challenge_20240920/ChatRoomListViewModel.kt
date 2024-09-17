@@ -34,4 +34,9 @@ class ChatRoomListViewModel @Inject constructor(private val chatWorkRepo: ChatWo
             _rooms.value = result
         }
     }
+
+    fun onLogout() {
+        chatWorkRepo.saveToken("")
+
+    }
 }

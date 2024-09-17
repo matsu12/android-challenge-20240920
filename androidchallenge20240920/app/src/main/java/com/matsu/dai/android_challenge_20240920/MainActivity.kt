@@ -11,6 +11,7 @@ import androidx.compose.material3.Button
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.navigation.NavController
@@ -30,6 +31,8 @@ class MainActivity : ComponentActivity() {
     lateinit var loginViewModel: LoginViewModel
     @Inject
     lateinit var chatRoomListViewModel: ChatRoomListViewModel
+    @Inject
+    lateinit var roomDetailViewModel: RoomDetailViewModel
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -37,7 +40,7 @@ class MainActivity : ComponentActivity() {
         setContent {
             Androidchallenge20240920Theme {
                 Scaffold(modifier = Modifier.fillMaxSize()) { innerPadding ->
-                    MyAppScreen(mainViewModel, loginViewModel, chatRoomListViewModel)
+                    MyAppScreen(mainViewModel, loginViewModel, chatRoomListViewModel, roomDetailViewModel)
                 }
             }
         }
@@ -47,13 +50,15 @@ class MainActivity : ComponentActivity() {
 
 @Composable
 fun MyAppScreen(mainViewModel: MainViewModel, loginViewModel: LoginViewModel,
-                chatRoomListViewModel: ChatRoomListViewModel) {
+                chatRoomListViewModel: ChatRoomListViewModel, roomDetailViewModel: RoomDetailViewModel) {
     val navController = rememberNavController()
     val notLogin = TextUtils.isEmpty(mainViewModel.localTokenText.value)
-    val firstScreen = if (notLogin) {
-        "First Screen"
-    } else {
-        "Second Screen"
+    val firstScreen = remember(notLogin) {
+        if (notLogin) {
+            "Login"
+        } else {
+            "Rooms"
+        }
     }
     Androidchallenge20240920Theme {
         Scaffold(
@@ -64,15 +69,15 @@ fun MyAppScreen(mainViewModel: MainViewModel, loginViewModel: LoginViewModel,
                 startDestination = firstScreen,
                 modifier = Modifier.padding(padding)
             ) {
-                composable(route = "First Screen") {
+                composable(route = "Login") {
                     LoginScreen(navController = navController, loginViewModel)
                 }
-                composable(route = "Second Screen") {
+                composable(route = "Rooms") {
                     ChatRoomListScreen(navController = navController, chatRoomListViewModel)
                 }
-                composable("detail/{roomId}") { backStackEntry ->
-                    val itemId = backStackEntry.arguments?.getString("roomId")
-                    //DetailScreen(itemId = itemId, navController = navController)
+                composable("RoomDetail/{roomId}") { backStackEntry ->
+                    val roomId = backStackEntry.arguments?.getString("roomId")?.toIntOrNull() ?: 0
+                    RoomDetailScreen(viewModel = roomDetailViewModel, roomId = roomId, navController = navController)
                 }
             }
         }

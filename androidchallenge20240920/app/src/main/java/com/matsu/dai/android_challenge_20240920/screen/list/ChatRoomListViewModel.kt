@@ -10,7 +10,6 @@ import kotlinx.coroutines.CoroutineExceptionHandler
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
-import retrofit2.HttpException
 import javax.inject.Inject
 
 class ChatRoomListViewModel @Inject constructor(private val chatWorkRepo: ChatWorkRepo): ViewModel() {
@@ -18,12 +17,11 @@ class ChatRoomListViewModel @Inject constructor(private val chatWorkRepo: ChatWo
     private val _rooms = mutableStateOf<List<Room>>(emptyList())
     val rooms: State<List<Room>> = _rooms
 
+    private val _errorText = mutableStateOf("")
+    val errorText: State<String> = _errorText
+
     private val exceptionHandler: CoroutineExceptionHandler = CoroutineExceptionHandler { _, throwable ->
-        if (throwable is HttpException) {
-
-        } else {
-
-        }
+        _errorText.value = "ルーム一覧が取得できませんでした。時間を置いてお試しください。"
     }
 
     fun getRoomList() {
@@ -32,6 +30,7 @@ class ChatRoomListViewModel @Inject constructor(private val chatWorkRepo: ChatWo
                 chatWorkRepo.getRooms()
             }
             _rooms.value = result
+            _errorText.value = ""
         }
     }
 

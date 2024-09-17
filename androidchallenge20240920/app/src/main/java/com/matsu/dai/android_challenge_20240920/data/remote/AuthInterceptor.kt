@@ -11,7 +11,7 @@ class AuthInterceptor @Inject constructor(val localData: LocalData): Interceptor
     override fun intercept(chain: Interceptor.Chain): Response {
         val originalRequest: Request = chain.request()
         val newRequest = originalRequest.newBuilder()
-            .addHeader("X-ChatWorkToken", localData.getToken() ?: "3639c997170e1ac59f8379ac2bd60ff9") // トークンを共通で追加
+            .addHeader("X-ChatWorkToken", localData.getToken() ?: "")
             .build()
         return chain.proceed(newRequest)
     }

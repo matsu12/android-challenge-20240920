@@ -1,8 +1,10 @@
 package com.matsu.dai.android_challenge_20240920.screen.list
 
 import androidx.compose.foundation.clickable
+import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.WindowInsets
+import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
@@ -19,14 +21,17 @@ import androidx.compose.material3.Text
 import androidx.compose.material3.TopAppBarDefaults
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.State
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
 import coil.compose.AsyncImage
+import com.matsu.dai.android_challenge_20240920.R
 import com.matsu.dai.android_challenge_20240920.data.repo.model.Room
 import com.matsu.dai.android_challenge_20240920.ui.theme.Androidchallenge20240920Theme
 
@@ -47,7 +52,7 @@ fun ChatRoomListScreen(navController: NavController, viewModel: ChatRoomListView
                     ),
                     title = {
                         Text(
-                            "ルーム一覧",
+                            stringResource(id = R.string.room_list),
                             maxLines = 1,
                             overflow = TextOverflow.Ellipsis
                         )
@@ -61,7 +66,7 @@ fun ChatRoomListScreen(navController: NavController, viewModel: ChatRoomListView
                                 }
                             }
                         }) {
-                            Text(text = "ログアウト")
+                            Text(text = stringResource(id = R.string.logout))
                         }
                     },
                     windowInsets = WindowInsets(
@@ -72,10 +77,11 @@ fun ChatRoomListScreen(navController: NavController, viewModel: ChatRoomListView
                     )
             },
             content = { paddingValues ->
-                Row(
+                Column(
                     modifier = Modifier.padding(paddingValues)
                 ) {
                     ItemListScreen(viewModel.rooms.value, navController)
+                    RoomsErrorText(errorTextState = viewModel.errorText)
                 }
             }
         )
@@ -86,7 +92,7 @@ fun ChatRoomListScreen(navController: NavController, viewModel: ChatRoomListView
 
 @Composable
 fun ItemListScreen(rooms: List<Room>, navController: NavController) {
-    LazyColumn(modifier = Modifier.fillMaxSize()) {
+    LazyColumn(modifier = Modifier.fillMaxHeight(0.9f)) {
         items(rooms) { room ->
             RoomItem(room = room, navController = navController)
         }
@@ -123,4 +129,9 @@ fun RoomItem(room: Room, navController: NavController) {
         thickness = 1.dp,
         modifier = Modifier.fillMaxWidth()
     )
+}
+
+@Composable
+fun RoomsErrorText(errorTextState: State<String>) {
+    Text(errorTextState.value, color = Color.Red)
 }

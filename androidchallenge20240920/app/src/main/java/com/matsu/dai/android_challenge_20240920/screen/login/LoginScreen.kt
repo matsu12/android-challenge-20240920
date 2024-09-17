@@ -17,11 +17,13 @@ import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.State
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
+import com.matsu.dai.android_challenge_20240920.R
 import com.matsu.dai.android_challenge_20240920.ui.theme.Androidchallenge20240920Theme
 
 @OptIn(ExperimentalMaterial3Api::class)
@@ -97,7 +99,7 @@ fun InputScreen(textState: State<String>, onTextChanged: (String) -> Unit) {
 @Composable
 fun LoginButton(onClicked: () -> Unit) {
     Button(onClick = { onClicked() }) {
-        Text("ログインする")
+        Text(stringResource(id = R.string.do_login))
     }
 }
 

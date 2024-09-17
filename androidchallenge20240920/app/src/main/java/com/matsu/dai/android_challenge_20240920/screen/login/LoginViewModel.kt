@@ -14,7 +14,6 @@ import javax.inject.Inject
 
 class LoginViewModel @Inject constructor(private val chatWorkRepo: ChatWorkRepo): ViewModel() {
 
-    // 入力値のState
     private val _tokenText = mutableStateOf("")
     val tokenText: State<String> = _tokenText
 
@@ -22,7 +21,6 @@ class LoginViewModel @Inject constructor(private val chatWorkRepo: ChatWorkRepo)
         _tokenText.value = newText
     }
 
-    // エラーメッセージ用のState
     private val _errorText = mutableStateOf("")
     val errorText: State<String> = _errorText
 

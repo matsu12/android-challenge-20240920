@@ -21,10 +21,9 @@ class RoomDetailViewModel @Inject constructor(private val chatWorkRepo: ChatWork
     private val _messages = mutableStateOf<List<Message>>(emptyList())
     val messages: State<List<Message>> = _messages
 
-    private val _roomName = mutableStateOf<String>("")
+    private val _roomName = mutableStateOf("")
     val roomName: State<String> = _roomName
 
-    // 入力値のState
     private val _messageText = mutableStateOf("")
     val messageText: State<String> = _messageText
 
@@ -32,7 +31,6 @@ class RoomDetailViewModel @Inject constructor(private val chatWorkRepo: ChatWork
         _messageText.value = newText
     }
 
-    // エラーメッセージ用のState
     private val _errorText = mutableStateOf("")
     val errorText: State<String> = _errorText
 
@@ -62,9 +60,12 @@ class RoomDetailViewModel @Inject constructor(private val chatWorkRepo: ChatWork
         viewModelScope.launch(exceptionHandler) {
             val result = withContext(Dispatchers.IO) {
                 chatWorkRepo.postMessages(_roomId, _messageText.value)
-                _messageText.value = ""
             }
+            // 次のメッセージを送りやすい様にリセット
+            _messageText.value = ""
+            _errorText.value = ""
             delay(1000)
+            // 送信後に再取得してタイムラインを更新する
             fetchRoomData(_roomId)
         }
     }

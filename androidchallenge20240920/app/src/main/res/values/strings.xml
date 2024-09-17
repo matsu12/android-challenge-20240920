@@ -1,3 +1,8 @@
 <resources>
     <string name="app_name">android-challenge-20240920</string>
+    <string name="do_login">ログインする</string>
+    <string name="logout">ログアウト</string>
+    <string name="room_list">ルーム一覧</string>
+    <string name="send">送信する</string>
+
 </resources>

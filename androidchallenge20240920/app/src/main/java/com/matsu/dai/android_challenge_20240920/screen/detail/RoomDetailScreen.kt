@@ -33,6 +33,7 @@ import androidx.compose.runtime.State
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.text.input.KeyboardType
@@ -42,6 +43,7 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
 import coil.compose.AsyncImage
+import com.matsu.dai.android_challenge_20240920.R
 import com.matsu.dai.android_challenge_20240920.data.repo.model.Message
 import com.matsu.dai.android_challenge_20240920.ui.theme.Androidchallenge20240920Theme
 
@@ -103,6 +105,7 @@ fun RoomDetailScreen(viewModel: RoomDetailViewModel, roomId: Int, navController:
                             viewModel.sendMessage()
                         }
                     }
+                    SendErrorText(errorTextState = viewModel.errorText)
                 }
             }
         )
@@ -111,7 +114,7 @@ fun RoomDetailScreen(viewModel: RoomDetailViewModel, roomId: Int, navController:
 
 @Composable
 fun ItemListScreen(messages: List<Message>) {
-    LazyColumn(modifier = Modifier.fillMaxHeight(0.92f)) {
+    LazyColumn(modifier = Modifier.fillMaxHeight(0.9f)) {
         items(messages) { message ->
             MessageItem(message = message)
         }
@@ -170,6 +173,12 @@ fun MessageInputScreen(textState: State<String>, modifier: Modifier,  onTextChan
 @Composable
 fun MessageSendButton(isSendEnabled: Boolean, onClicked: () -> Unit) {
     Button(enabled = isSendEnabled, onClick = { onClicked() }) {
-        Text("送信する")
+        Text(stringResource(id = R.string.send))
     }
+}
+
+
+@Composable
+fun SendErrorText(errorTextState: State<String>) {
+    Text(errorTextState.value, color = Color.Red)
 }

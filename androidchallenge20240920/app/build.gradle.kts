@@ -3,6 +3,7 @@ plugins {
     alias(libs.plugins.jetbrains.kotlin.android)
     id("kotlin-kapt")
     id("com.google.dagger.hilt.android")
+    id("com.google.android.gms.oss-licenses-plugin")
 }
 
 android {
@@ -23,6 +24,10 @@ android {
     }
 
     buildTypes {
+        debug {
+            // 今回はisDebuggableをfalseにして一旦ライセンス表示をできる様にしておく
+            isDebuggable = true
+        }
         release {
             isMinifyEnabled = false
             proguardFiles(

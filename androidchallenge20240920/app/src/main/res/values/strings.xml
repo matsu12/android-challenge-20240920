@@ -4,5 +4,6 @@
     <string name="logout">ログアウト</string>
     <string name="room_list">ルーム一覧</string>
     <string name="send">送信する</string>
+    <string name="library">利用ライブラリ</string>
 
 </resources>

@@ -5,6 +5,7 @@ import android.text.TextUtils
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
+import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.Scaffold
@@ -17,6 +18,8 @@ import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import com.matsu.dai.android_challenge_20240920.screen.detail.RoomDetailScreen
 import com.matsu.dai.android_challenge_20240920.screen.detail.RoomDetailViewModel
+import com.matsu.dai.android_challenge_20240920.screen.librarylist.LibraryLicenseListScreen
+import com.matsu.dai.android_challenge_20240920.screen.librarylist.LibraryLicenseListViewModel
 import com.matsu.dai.android_challenge_20240920.screen.list.ChatRoomListScreen
 import com.matsu.dai.android_challenge_20240920.screen.list.ChatRoomListViewModel
 import com.matsu.dai.android_challenge_20240920.screen.login.LoginScreen
@@ -36,6 +39,8 @@ class MainActivity : ComponentActivity() {
     lateinit var chatRoomListViewModel: ChatRoomListViewModel
     @Inject
     lateinit var roomDetailViewModel: RoomDetailViewModel
+    @Inject
+    lateinit var libraryLicenseListViewModel: LibraryLicenseListViewModel
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -43,7 +48,7 @@ class MainActivity : ComponentActivity() {
         setContent {
             Androidchallenge20240920Theme {
                 Scaffold(modifier = Modifier.fillMaxSize()) { innerPadding ->
-                    MyAppScreen(mainViewModel, loginViewModel, chatRoomListViewModel, roomDetailViewModel)
+                    MyAppScreen(innerPadding, mainViewModel, loginViewModel, chatRoomListViewModel, roomDetailViewModel, libraryLicenseListViewModel)
                 }
             }
         }
@@ -52,8 +57,9 @@ class MainActivity : ComponentActivity() {
 }
 
 @Composable
-fun MyAppScreen(mainViewModel: MainViewModel, loginViewModel: LoginViewModel,
-                chatRoomListViewModel: ChatRoomListViewModel, roomDetailViewModel: RoomDetailViewModel
+fun MyAppScreen(innerPadding: PaddingValues, mainViewModel: MainViewModel, loginViewModel: LoginViewModel,
+                chatRoomListViewModel: ChatRoomListViewModel,
+                roomDetailViewModel: RoomDetailViewModel, libraryLicenseListViewModel: LibraryLicenseListViewModel
 ) {
     val navController = rememberNavController()
     val notLogin = TextUtils.isEmpty(mainViewModel.localTokenText.value)
@@ -66,6 +72,7 @@ fun MyAppScreen(mainViewModel: MainViewModel, loginViewModel: LoginViewModel,
     }
     Androidchallenge20240920Theme {
         Scaffold(
+            modifier = Modifier.padding(innerPadding),
             bottomBar = { }
         ) { padding ->
             NavHost(
@@ -82,6 +89,9 @@ fun MyAppScreen(mainViewModel: MainViewModel, loginViewModel: LoginViewModel,
                 composable("RoomDetail/{roomId}") { backStackEntry ->
                     val roomId = backStackEntry.arguments?.getString("roomId")?.toIntOrNull() ?: 0
                     RoomDetailScreen(viewModel = roomDetailViewModel, roomId = roomId, navController = navController)
+                }
+                composable(route = "LibraryList") {
+                    LibraryLicenseListScreen(libraryLicenseListViewModel, navController = navController)
                 }
             }
         }

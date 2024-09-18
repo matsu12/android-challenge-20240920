@@ -1,5 +1,7 @@
 package com.matsu.dai.android_challenge_20240920.data.repo
 
+import com.matsu.dai.android_challenge_20240920.data.local.LibraryLicense
+import com.matsu.dai.android_challenge_20240920.data.local.LibraryLicenseList
 import com.matsu.dai.android_challenge_20240920.data.repo.local.LocalData
 import com.matsu.dai.android_challenge_20240920.data.repo.model.Message
 import com.matsu.dai.android_challenge_20240920.data.repo.model.Room
@@ -11,9 +13,12 @@ class ChatWorkRepo() {
 
     lateinit var chatWorkApis: ChatWorkApis
     lateinit var localData: LocalData
-    @Inject constructor(chatWorkApis: ChatWorkApis, localData: LocalData): this() {
+    lateinit var libraryLicenseList: LibraryLicenseList
+
+    @Inject constructor(chatWorkApis: ChatWorkApis, localData: LocalData, libraryLicenseList: LibraryLicenseList): this() {
         this.chatWorkApis = chatWorkApis
         this.localData = localData
+        this.libraryLicenseList = libraryLicenseList
     }
 
     suspend fun getMe(): UserData {
@@ -42,5 +47,9 @@ class ChatWorkRepo() {
 
     fun getToken(): String? {
         return localData.getToken()
+    }
+
+    suspend fun getLibsList(): List<LibraryLicense> {
+        return libraryLicenseList.create()
     }
 }
